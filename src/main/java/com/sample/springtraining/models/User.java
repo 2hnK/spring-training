@@ -16,7 +16,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "USERS")
@@ -53,8 +53,8 @@ public class User {
         }
     }
 
-    @Builder(access = AccessLevel.PUBLIC)
-    private User(String name, String nickname, String email, String password, LocalDateTime createdAt) {
+    @Builder
+    public User(String name, String nickname, String email, String password, LocalDateTime createdAt) {
         this.name = name;
         this.nickname = nickname;
         this.email = email;

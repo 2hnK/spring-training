@@ -7,12 +7,14 @@ import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.sample.springtraining.models.QUser;
 import com.sample.springtraining.models.User;
 import com.sample.springtraining.repositories.UserRepository;
+import com.sample.springtraining.projections.NameOnly;
 
 import jakarta.persistence.EntityManager;
 
@@ -29,6 +31,8 @@ public class UserService {
     }
 
     public List<User> findAllUsers() {
+        /* 모든 사용자 조회 */
+
         Iterable<User> iterable = userRepository.findAll(Sort.unsorted());
         List<User> users = new ArrayList<>();
 
@@ -39,6 +43,8 @@ public class UserService {
     }
 
     public User findUserByNickname(String nickname) {
+        /* 닉네임이 {nickname}인 사용자 조회 */
+
         QUser user = QUser.user;
         JPAQuery<User> query = new JPAQuery<>(entityManager);
 
@@ -48,15 +54,29 @@ public class UserService {
                 .fetchOne();
     }
 
-    public List<User> findUsersOrderByEmail() {
-        OrderSpecifier<String> descOrder = QUser.user.email.desc();
-        Iterable<User> iterable = userRepository.findAll(descOrder);
+    public List<User> findUsersByEmailContaining(String query) {
+        /* 이메일에 {query}가 포함된 사용자 조회 */
+
+        if (!StringUtils.hasText(query)) {
+            throw new IllegalArgumentException("쿼리를 입력해주세요");
+        }
+
+        QUser user = QUser.user;
+        OrderSpecifier<String> ascOrder = user.email.asc();
+        Iterable<User> iterable = userRepository.findAll(user.email.containsIgnoreCase(query.trim()), ascOrder);
         return StreamSupport.stream(iterable.spliterator(), false)
                 .toList();
     }
 
-    public List<User> findUsersByEmailContaining(String email) {
-        OrderSpecifier<String> ascOrder = QUser.user.email.asc();
-        Iterable<User> iterable = userRepository.findAll();
+    public List<NameOnly> findNameOnlyByEmail(String email) {
+        /* 이메일에 {email}이 포함된 사용자 이름 조회 */
+
+        if (!StringUtils.hasText(email)) {
+            throw new IllegalArgumentException("이메일을 입력해주세요");
+        }
+
+        Iterable<NameOnly> iterable = userRepository.findNameOnlyByEmail(email.trim());
+        return StreamSupport.stream(iterable.spliterator(), false)
+                .toList();
     }
 }
