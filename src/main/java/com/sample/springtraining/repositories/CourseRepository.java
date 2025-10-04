@@ -2,11 +2,11 @@ package com.sample.springtraining.repositories;
 
 import java.util.stream.Stream;
 
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.sample.springtraining.models.Course;
 
-public interface CourseRepository extends PagingAndSortingRepository<Course, Long> {
+public interface CourseRepository extends JpaRepository<Course, Long> {
     Iterable<Course> findAllByCategory(String category);
 
     Iterable<Course> findAllByCategoryOrderByName(String category);
