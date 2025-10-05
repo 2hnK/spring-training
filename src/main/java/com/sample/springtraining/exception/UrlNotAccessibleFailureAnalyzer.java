@@ -1,4 +1,4 @@
-package com.sample.springtraining.exceptions;
+package com.sample.springtraining.exception;
 
 import org.springframework.boot.diagnostics.AbstractFailureAnalyzer;
 import org.springframework.boot.diagnostics.FailureAnalysis;

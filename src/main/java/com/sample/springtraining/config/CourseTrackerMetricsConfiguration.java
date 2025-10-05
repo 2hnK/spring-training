@@ -1,4 +1,4 @@
-package com.sample.springtraining.configurations;
+package com.sample.springtraining.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

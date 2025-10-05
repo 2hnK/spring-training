@@ -2,6 +2,7 @@ package com.sample.springtraining.services;
 
 import org.springframework.stereotype.Service;
 
+import com.sample.springtraining.dto.course.CourseCreateRequest;
 import com.sample.springtraining.models.Course;
 import com.sample.springtraining.repositories.CourseRepository;
 
@@ -18,8 +19,8 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public Course createCourse(Course course) {
+    public Course createCourse(CourseCreateRequest request) {
         createCourseCounter.increment();
-        return courseRepository.save(course);
+        return courseRepository.save(request.toEntity());
     }
 }
