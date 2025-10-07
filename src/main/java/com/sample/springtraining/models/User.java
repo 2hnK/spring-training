@@ -11,7 +11,6 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +32,7 @@ public class User {
     @NotBlank
     @Column(name = "NICKNAME", nullable = false)
     private String nickname;
-    
+
     @Email
     @NotBlank
     @Column(name = "EMAIL", nullable = false)

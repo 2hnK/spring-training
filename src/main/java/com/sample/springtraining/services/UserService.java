@@ -13,8 +13,8 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.sample.springtraining.models.QUser;
 import com.sample.springtraining.models.User;
-import com.sample.springtraining.repositories.UserRepository;
 import com.sample.springtraining.projections.NameOnly;
+import com.sample.springtraining.repositories.UserRepository;
 
 import jakarta.persistence.EntityManager;
 
