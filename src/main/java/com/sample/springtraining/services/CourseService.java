@@ -1,5 +1,6 @@
 package com.sample.springtraining.services;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.sample.springtraining.dto.course.CourseCreateRequest;
@@ -23,8 +24,8 @@ public class CourseService {
 
     public CourseService(CourseRepository courseRepository,
             Timer createCourseTimer,
-            Counter successCounter,
-            Counter failureCounter,
+            @Qualifier("successCounter") Counter successCounter,
+            @Qualifier("failureCounter") Counter failureCounter,
             DistributionSummary createDistributionSummary) {
         this.courseRepository = courseRepository;
         this.createCourseTimer = createCourseTimer;

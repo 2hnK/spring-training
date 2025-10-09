@@ -1,10 +1,10 @@
-INSERT INTO COURSES (NAME, CATEGORY, RATING, DESCRIPTION) VALUES
-('Rapid Spring Boot Application Development', 'Spring', 4, 'Spring Boot gives all the power of the Spring Framework without all of the complexities'),
-('Mastering Spring Security', 'Spring', 5, 'Learn how to secure your Spring applications with authentication, authorization, and OAuth2 integration'),
-('Spring Data JPA Fundamentals', 'Database', 4, 'Master database operations with Spring Data JPA, repositories, and query methods for efficient data access'),
-('Spring MVC Web Development', 'Spring', 3, 'Build dynamic web applications using Spring MVC, Thymeleaf templates, and form handling techniques'),
-('Spring Cloud Microservices', 'Microservices', 5, 'Develop scalable microservices architecture with Spring Cloud, service discovery, and distributed systems'),
-('Reactive Spring WebFlux', 'Spring', 5, 'Build reactive APIs with Spring WebFlux, Project Reactor, and backpressure support'),
-('Spring Boot Actuator & Monitoring', 'DevOps', 4, 'Monitor and manage apps with Actuator endpoints, Micrometer metrics, and health checks'),
-('Spring Batch Processing', 'Spring', 3, 'Create robust ETL jobs using Spring Batch readers, processors, writers, and scheduling'),
-('Testing Spring Applications', 'Testing', 4, 'Write unit, slice, and integration tests with JUnit 5, Mockito, and Testcontainers');
+INSERT INTO COURSES (NAME, CATEGORY, RATING, DESCRIPTION, CREATED_AT, UPDATED_AT) VALUES
+('Rapid Spring Boot Application Development', 'Spring', 4, 'Spring Boot gives all the power of the Spring Framework without all of the complexities', '2025-08-05 10:30:00', '2025-09-12 14:20:00'),
+('Mastering Spring Security', 'Spring', 5, 'Learn how to secure your Spring applications with authentication, authorization, and OAuth2 integration', '2025-08-15 09:15:00', '2025-09-25 16:45:00'),
+('Spring Data JPA Fundamentals', 'Database', 4, 'Master database operations with Spring Data JPA, repositories, and query methods for efficient data access', '2025-08-22 11:00:00', '2025-10-01 10:30:00'),
+('Spring MVC Web Development', 'Spring', 3, 'Build dynamic web applications using Spring MVC, Thymeleaf templates, and form handling techniques', '2025-08-10 14:20:00', '2025-08-28 09:10:00'),
+('Spring Cloud Microservices', 'Microservices', 5, 'Develop scalable microservices architecture with Spring Cloud, service discovery, and distributed systems', '2025-09-01 08:45:00', '2025-10-05 15:30:00'),
+('Reactive Spring WebFlux', 'Spring', 5, 'Build reactive APIs with Spring WebFlux, Project Reactor, and backpressure support', '2025-09-10 13:10:00', '2025-10-08 11:20:00'),
+('Spring Boot Actuator & Monitoring', 'DevOps', 4, 'Monitor and manage apps with Actuator endpoints, Micrometer metrics, and health checks', '2025-08-18 10:00:00', '2025-09-18 14:50:00'),
+('Spring Batch Processing', 'Spring', 3, 'Create robust ETL jobs using Spring Batch readers, processors, writers, and scheduling', '2025-08-25 15:30:00', '2025-09-20 12:15:00'),
+('Testing Spring Applications', 'Testing', 4, 'Write unit, slice, and integration tests with JUnit 5, Mockito, and Testcontainers', '2025-09-05 09:40:00', '2025-10-03 13:25:00');
