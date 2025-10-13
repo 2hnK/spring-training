@@ -1,16 +1,16 @@
 package com.sample.springtraining.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.sample.springtraining.handlers.CustomAccessDeniedHandler;
@@ -21,6 +21,9 @@ public class SecurityConfig {
 
     @Autowired
     private CustomAccessDeniedHandler customAccessDeniedHandler;
+    
+    @Autowired
+    private DataSource dataSource;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -49,21 +52,32 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * JDBC 기반 AuthenticationManager 설정
+     * DataSource를 사용하여 데이터베이스에서 사용자 인증 정보를 조회
+     */
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
-
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("user"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = 
+            http.getSharedObject(AuthenticationManagerBuilder.class);
+        
+        authenticationManagerBuilder
+            .jdbcAuthentication()
+            .dataSource(dataSource)
+            // 사용자 조회 쿼리 (Spring Security 표준 스키마 기반)
+            .usersByUsernameQuery(
+                "SELECT username, password, true as enabled " +
+                "FROM users WHERE username = ?"
+            )
+            // 권한 조회 쿼리
+            .authoritiesByUsernameQuery(
+                "SELECT a.username, a.authority " +
+                "FROM authorities a " +
+                "WHERE a.username = ?"
+            )
+            .passwordEncoder(passwordEncoder());
+        
+        return authenticationManagerBuilder.build();
     }
 
     @Bean

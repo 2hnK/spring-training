@@ -35,10 +35,13 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Authority> authorities = new ArrayList<>();
+
     @NotBlank
-    @Column(name = "NAME", nullable = false)
-    @Comment("계정 아이디")
-    private String name;
+    @Column(name = "USERNAME", nullable = false, unique = true)
+    @Comment("로그인 계정 ID")
+    private String username;
 
     @NotBlank
     @Column(name = "PASSWORD", nullable = false)
@@ -57,8 +60,8 @@ public class User extends BaseEntity {
     private String email;
 
     @Builder
-    public User(String name, String password, String nickname, String email) {
-        this.name = name;
+    public User(String username, String password, String nickname, String email) {
+        this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.email = email;
