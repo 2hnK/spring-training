@@ -14,7 +14,7 @@ import com.sample.springtraining.projections.NameOnly;
 import com.sample.springtraining.services.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 
     private final UserService userService;
@@ -27,7 +27,7 @@ public class UserController {
     /*
      * 모든 사용자 조회
      */
-    @GetMapping("/")
+    @GetMapping
     public List<User> getAllUsers() {
         return userService.findAllUsers();
     }

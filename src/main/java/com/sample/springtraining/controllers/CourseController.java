@@ -14,7 +14,7 @@ import com.sample.springtraining.models.Course;
 import com.sample.springtraining.services.CourseService;
 
 @RestController
-@RequestMapping("/courses")
+@RequestMapping("/api/courses")
 public class CourseController {
 
     private final CourseService courseService;
