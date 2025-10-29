@@ -30,7 +30,7 @@ import lombok.Setter;
 public class Course extends BaseEntity {
 
     @Id
-    @Column(name = "COURSE_ID")
+    @Column(name = "course_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Comment("강좌 고유 ID")
     private Long id;
@@ -42,23 +42,23 @@ public class Course extends BaseEntity {
     private List<Bookmark> bookmarks = new ArrayList<>();
 
     @NotBlank(message = "강좌명은 필수입니다")
-    @Column(name = "NAME", nullable = false)
+    @Column(name = "name", nullable = false)
     @Comment("강좌명")
     private String name;
 
     @NotBlank(message = "강좌 설명은 필수입니다")
-    @Column(name = "DESCRIPTION", nullable = false, length = 1000)
+    @Column(name = "description", nullable = false, length = 1000)
     @Comment("강좌 상세 설명")
     private String description;
 
     @NotBlank(message = "카테고리는 필수입니다")
-    @Column(name = "CATEGORY", nullable = false)
+    @Column(name = "category", nullable = false)
     @Comment("강좌 카테고리")
     private String category;
 
     @Min(value = 1, message = "평점은 최소 1점입니다")
     @Max(value = 5, message = "평점은 최대 5점입니다")
-    @Column(name = "RATING", nullable = false)
+    @Column(name = "rating", nullable = false)
     @Comment("강좌 평점")
     private int rating;
 

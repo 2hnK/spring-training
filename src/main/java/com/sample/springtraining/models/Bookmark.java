@@ -26,16 +26,16 @@ public class Bookmark extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BOOKMARK_ID")
+    @Column(name = "bookmark_id")
     @Comment("북마크 고유 ID")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "USER_ID", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COURSE_ID", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
     @Builder

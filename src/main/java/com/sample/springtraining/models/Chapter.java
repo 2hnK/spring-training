@@ -29,27 +29,27 @@ public class Chapter extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CHAPTER_ID")
+    @Column(name = "chapter_id")
     @Comment("챕터 고유 ID")
     private Long id;
 
     @NotNull(message = "소속 강좌는 필수입니다")
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "COURSE_ID", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
     @NotBlank(message = "챕터 제목은 필수입니다")
-    @Column(name = "TITLE", nullable = false)
+    @Column(name = "title", nullable = false)
     @Comment("챕터 제목")
     private String title;
 
-    @Column(name = "CONTENT", length = 5000)
+    @Column(name = "content", length = 5000)
     @Comment("챕터 내용")
     private String content;
 
     @NotNull(message = "챕터 순서는 필수입니다")
     @Min(value = 1, message = "챕터 순서는 1 이상이어야 합니다")
-    @Column(name = "ORDER_INDEX", nullable = false)
+    @Column(name = "order_index", nullable = false)
     @Comment("챕터 정렬 순서")
     private Integer orderIndex;
 

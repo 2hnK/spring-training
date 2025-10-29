@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long>, QuerydslPredi
 
     Iterable<NameOnly> findNameOnlyByEmail(String email);
 
+    User findByLoginId(String loginId);
+
 }

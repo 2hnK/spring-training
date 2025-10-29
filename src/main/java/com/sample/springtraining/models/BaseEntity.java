@@ -18,12 +18,12 @@ import lombok.Getter;
 public abstract class BaseEntity {
 
     @CreatedDate
-    @Column(name = "CREATED_AT", updatable = false)
+    @Column(name = "created_at", updatable = false)
     @Comment("생성 일시")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "UPDATED_AT")
+    @Column(name = "updated_at")
     @Comment("최종 수정 일시")
     private LocalDateTime updatedAt;
 

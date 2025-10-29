@@ -1,4 +1,4 @@
-INSERT INTO USERS (NAME, NICKNAME, EMAIL, PASSWORD, CREATED_AT) VALUES
+INSERT INTO USERS (login_id, nickname, email, password, created_at) VALUES
 ('김지훈', '지훈', 'kimgh921@gmail.com', 'qwer1234', '2025-09-29 11:54:14'),
 ('김민준', '민준', 'minjun.kim@test.com', 'pass123', '2025-07-15 10:25:14'),
 ('이서연', '서연', 's_yeon.lee@test.com', 'love9876', '2025-07-18 14:05:52'),

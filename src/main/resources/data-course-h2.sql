@@ -1,4 +1,4 @@
-INSERT INTO COURSES (NAME, CATEGORY, RATING, DESCRIPTION, CREATED_AT, UPDATED_AT) VALUES
+INSERT INTO COURSES (name, category, rating, description, created_at, updated_at) VALUES
 ('Rapid Spring Boot Application Development', 'Spring', 4, 'Spring Boot gives all the power of the Spring Framework without all of the complexities', '2025-08-05 10:30:00', '2025-09-12 14:20:00'),
 ('Mastering Spring Security', 'Spring', 5, 'Learn how to secure your Spring applications with authentication, authorization, and OAuth2 integration', '2025-08-15 09:15:00', '2025-09-25 16:45:00'),
 ('Spring Data JPA Fundamentals', 'Database', 4, 'Master database operations with Spring Data JPA, repositories, and query methods for efficient data access', '2025-08-22 11:00:00', '2025-10-01 10:30:00'),

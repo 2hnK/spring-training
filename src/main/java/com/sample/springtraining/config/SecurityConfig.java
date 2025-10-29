@@ -1,74 +1,66 @@
 package com.sample.springtraining.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import com.sample.springtraining.handlers.CustomAccessDeniedHandler;
+import com.sample.springtraining.services.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private CustomAccessDeniedHandler customAccessDeniedHandler;
+        private CustomAccessDeniedHandler customAccessDeniedHandler;
+        private DataSource dataSource;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
-                        .requestMatchers("/webjars/**", "/images/**", "/css/**", "/js/**").permitAll()
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/users/**").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers("/api/**").authenticated()
-                        .anyRequest().authenticated())
-                .exceptionHandling(exception -> exception
-                        .accessDeniedHandler(customAccessDeniedHandler))
-                .formLogin(form -> form
-                        .defaultSuccessUrl("/swagger-ui/index.html", true)
-                        .permitAll())
-                .logout(logout -> logout
-                        .logoutSuccessUrl("/")
-                        .permitAll())
-                .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/h2-console/**"))
-                .headers(headers -> headers
-                        .frameOptions(frame -> frame.sameOrigin()));
+        @Autowired
+        public SecurityConfig(CustomAccessDeniedHandler customAccessDeniedHandler, DataSource dataSource) {
+                this.customAccessDeniedHandler = customAccessDeniedHandler;
+                this.dataSource = dataSource;
+        }
 
-        return http.build();
-    }
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http.authorizeHttpRequests(authorize -> authorize
+                                .requestMatchers("/", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
+                                .requestMatchers("/webjars/**", "/images/**", "/css/**", "/js/**").permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/api/users/**").hasAnyRole("ADMIN", "USER")
+                                .requestMatchers("/api/**").authenticated()
+                                .anyRequest().authenticated())
+                                .exceptionHandling(exception -> exception
+                                                .accessDeniedHandler(customAccessDeniedHandler))
+                                .formLogin(form -> form
+                                                .defaultSuccessUrl("/swagger-ui/index.html", true)
+                                                .permitAll())
+                                .logout(logout -> logout
+                                                .logoutSuccessUrl("/")
+                                                .permitAll())
+                                .csrf(csrf -> csrf
+                                                .ignoringRequestMatchers("/h2-console/**"))
+                                .headers(headers -> headers
+                                                .frameOptions(frame -> frame.sameOrigin()));
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails admin = User.builder()
-                .username("admin")
-                .password(passwordEncoder().encode("admin"))
-                .roles("ADMIN")
-                .build();
+                return http.build();
+        }
 
-        UserDetails user = User.builder()
-                .username("user")
-                .password(passwordEncoder().encode("user"))
-                .roles("USER")
-                .build();
+        @Bean
+        public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+                return new CustomUserDetailsService();
+        }
 
-        return new InMemoryUserDetailsManager(admin, user);
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-        // return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        }
 }
